@@ -33,7 +33,7 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean install -DskipTests=true
-    - name: WhiteSource Unified Agent Scan
+    - name: Mend Unified Agent Scan
       env:
         WS_ENABLEIMPACTANALYSIS: true
         WS_RESOLVEALLDEPENDENCIES: false
@@ -47,6 +47,10 @@ jobs:
         WARFILE=$(find ./ -type f -wholename "*/target/*.war")
         echo $WARFILE will be added to appPath
         java -jar wss-unified-agent.jar -appPath $WARFILE -d ./
+    - name: Organizae Prioritize Tickets
+      run: |
         curl -LJO https://raw.githubusercontent.com/mend-toolkit/mend-examples/main/Scripts/ghissue-eua.sh
+        export WS_APIKEY=${{secrets.APIKEY}}
+        export WS_USERKEY=${{secrets.USERKEY}}
         chmod +x ./ghissue-eua.sh && ./ghissue-eua.sh
         
