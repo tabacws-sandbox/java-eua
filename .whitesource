@@ -1,9 +1,11 @@
+
 {
   "scanSettings": {
     "configMode": "AUTO",
     "configExternalURL": "",
     "projectToken": "",
-    "baseBranches": []
+    "baseBranches": [],
+	"enableLicenseViolations":true
   },
   "checkRunSettings": {
     "vulnerableCheckRunConclusionLevel": "failure",
@@ -12,11 +14,17 @@
   },
   "issueSettings": {
     "minSeverityLevel": "LOW",
-    "issueType": "DEPENDENCY"
+    "issueType": "VULNERABILITY"
   },
   "remediateSettings": {
     "workflowRules": {
-      "enabled": true
-    }
+      "enabled": true,
+      "minVulnerabilityScore": 1.5,
+      "maxVulnerabilityScore": 10
+    },
+    "extends": [
+      "github>whitesource/merge-confidence:beta",
+	  "github>whitesource/log4j-remediations"
+    ]
   }
 }
